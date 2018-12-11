@@ -1,0 +1,145 @@
+= How to create a Google Hangouts Chat Bot and setup a development environment
+:toc:
+:linkattrs:
+
+[.lead]
+A Google Apps Script Hangouts Bot tutorial to *get data from an external api (http://numberapi.com/[https://numbersapi.com/, window="_blank"])* and setup a *development environment* with *version control*.
+
+== Executive Summary
+
+=== Introduction
+Chatbots, or "bots" for short, are computer programs that interact with people in a way that mimics human interaction to some degree.  Bots in Hangouts Chat appear as special users marked as *BOT*.  Just like people, bots can participate in chat rooms, and they can respond to direct message.  But unlike people, bots only see messages directed to them when a person @mentions them in a chat room, or when a person sends them a direct message.
+
+_Introduction summarized from the Hangouts Chat API - Chatbot Concepts.  To learn more, visit https://developers.google.com/hangouts/chat/concepts/bots[https://developers.google.com/hangouts/chat/concepts/bots, window="_blank"]._
+
+=== Goals of the tutorial
+This tutorial has the following goals:
+
+* Create an Apps Script bot
+* Setup a local development environment
+* Connect the local environment to Github for version control
+* Automatically push local changes to the Google Apps Script project on Google
+* Code the bot to get data from the http://numberapi.com/[numbers api, window="_blank"]
+* Deploy the chat bot for the following purposes:
+** developer testing
+** user acceptance testing
+** production release
+
+== Prerequisites and setup
+
+=== Prerequisites
+
+This article presumes a basic understanding of the following technologies:
+
+_See the provided links per technology to refresh your working knowledge._
+
+* JavaScript (https://watchandcode.com/p/practical-javascript[Watch and Code - Practical JavaScript, window="_blank"])
+* git (https://git-scm.com/book/en/v2[Pro Git Book, window="_blank"])
+* GSuite (https://gsuite.google.com/learning-center/#!/[G Suite Learning Center,window="_blank"])
+* Google Apps Script (https://developers.google.com/apps-script/[Google Apps Script Reference,window="_blank"])
+
+This article requires the following:
+
+. A GSuite account (see https://gsuite.google.com/faq/[G Suite FAQs, window="_blank"] for more details)
+. Access to the Google Cloud Platform (https://console.cloud.google.com[https://console.cloud.google.com, window="_blank"])
+
+=== Setup
+
+==== Login to G Suite
+
+. Navigate to *https://drive.google.com[Google Drive, window="_blank"]*
+. Authenticate with your *G Suite credentials*
+
+==== Create Google Apps Script File
+
+Build web apps and automate tasks with Google Apps Script.  Apps Script is a rapid application development platform that makes it fast and easy to create business applications that integrate with G Suite. See https://www.google.com/script/start/[Google Apps Script, window="_blank"] for more information.
+
+. Click *https://script.google.com/create?template=hangoutsChat[Hangouts Chat Bot template, window="_blank"]* to create a Google boilerplate template.
+. Click *File > Save*, name the project *'Numbers'*, and click *OK*
+. Open the *Code.gs* file, and locate the *onMessage(event)* function
+.. Replace this original text:
+[source, JavaScript]
+    var name = "";
+    if (event.space.type == "DM") {
+        name = "You";
+    } else {
+        name = event.user.displayName;
+    }
+    var message = name + " said \"" + event.message.text + "\"";
+
+.. with the following:
+[source, javascript]
+    var message = "You just said: \"" + event.message.text + "\"";
+
+.. so that the *onMessage(event)* function reads as follows:
+[source, javascript]
+    function onMessage(event) {
+        var message = "You just said: \"" + event.message.text + "\"";
+        return { "text": message };
+    }
+
+. Save the *Numbers* project, by executing the shortcut key stroke: *Ctrl + s*.
+
+==== Setup Local Environment
+
+. Open a *command line interface*
+. Create a *new directory* on your computer to store your project and navigate into *the directory*:
+[source, bash]
+    mkdir Numbers && cd Numbers
+
+==== Install clasp and clone project
+
+Develop Apps Script projects locally using *clasp* (**C**ommand **L**ine **A**pps **S**cript **P**rojects). *clasp* allows you to check-in your code into source control, collaborate with other developers, and use your favorite tools to develop Apps Script.  To learn more about clasp, see it's https://github.com/google/clasp[github repository, window="_blank"]
+
+. Download *clasp*:
+[source, bash]
+    sudo npm i @google/clasp -g
+
+. Enable the *Apps Script API*: https://script.google.com/home/usersettings[https://script.google.com/home/usersettings, window="_blank"]
+
+. Login to *clasp*:
+[source, bash]
+    clasp login
+
+. When prompted to login with a new window, Authenticate with your *G Suite credentials.*
+
+. Within the Google Apps Script editor, click *File > Project properties* and copy the *Script ID* to clipboard.
+
+. Using *clasp*, clone the *Google Apps Script project* with:
+[source, bash]
+    clasp clone <script id from clipboard>
+
+==== Connect Remote Git repository
+
+. Open a *command line interface*
+. Navigate to the *Numbers* directory on your computer
+. Execute the following command:
+[source, bash]
+    git init
+
+. Create an account and/or sign in to *https://github.com[github]*
+. Click on *Repositories*
+. Click on *New* to create a new repository
+. Enter a *Repository name* and click *Create repository*
+. Copy the  *first git command,* located in the *...or push an existing repository from command line*, to clipboard.
+. Back in the *Numbers* directory, execute the copied command:
+[source, bash]
+    git remote add origin https://github.com/daubejb/Numbers.git
+
+
+// JSON
+// Include the query parameter json or set the HTTP header Content-Type to application/json to return the fact and associated meta-data as a JSON object, with the properties:
+// text: A string of the fact text itself.
+// found: Boolean of whether there was a fact for the requested number.
+// number: The floating-point number that the fact pertains to. This may be useful for, eg. a /random request or notfound=floor. For a date fact, this is the 1-indexed day of a leap year (eg. 61 would be March 1st).
+// type: String of the category of the returned fact.
+// date (sometimes): A day of year associated with some year facts, as a string.
+// year (sometimes): A year associated with some date facts, as a string.
+// http://numbersapi.com/random/year?json
+// ⇒ {
+//     "text": "2012 is the year that the century's second and last solar transit of Venus occurs on June 6.",
+//     "found": true,
+//     "number": 2012,
+//     "type": "year",
+//     "date": "June 6"
+// }
