@@ -159,6 +159,8 @@ To learn more about clasp, see it's https://github.com/google/clasp[github repos
 [source, bash]
     clasp push
 
+image::https://github.com/daubejb/Numbers/blob/master/images/clasp_push.png?raw=true
+
 
 // JSON
 // Include the query parameter json or set the HTTP header Content-Type to application/json to return the fact and associated meta-data as a JSON object, with the properties:
