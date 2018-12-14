@@ -52,13 +52,15 @@ This article requires the following:
 
 ==== Create Google Apps Script File
 
-Build web apps and automate tasks with Google Apps Script.  Apps Script is a rapid application development platform that makes it fast and easy to create business applications that integrate with G Suite. See https://www.google.com/script/start/[Google Apps Script, window="_blank"] for more information.
+Build web apps and automate tasks with Google Apps Script.  Apps Script is a rapid application development platform that makes it fast and easy to create business applications that integrate with G Suite. 
+[NOTE]
+See https://www.google.com/script/start/[Google Apps Script, window="_blank"] for more information.
 
 . Click *https://script.google.com/create?template=hangoutsChat[Hangouts Chat Bot template, window="_blank"]* to create a Google boilerplate template.
 . Click *File > Save*, name the project *'Numbers'*, and click *OK*
 . Open the *Code.gs* file, and locate the *onMessage(event)* function
 .. Replace this original text:
-[source, JavaScript]
+[source, javascript]
     var name = "";
     if (event.space.type == "DM") {
         name = "You";
@@ -89,7 +91,10 @@ Build web apps and automate tasks with Google Apps Script.  Apps Script is a rap
 
 ==== Install clasp and clone project
 
-Develop Apps Script projects locally using *clasp* (**C**ommand **L**ine **A**pps **S**cript **P**rojects). *clasp* allows you to check-in your code into source control, collaborate with other developers, and use your favorite tools to develop Apps Script.  To learn more about clasp, see it's https://github.com/google/clasp[github repository, window="_blank"]
+Develop Apps Script projects locally using *clasp* (**C**ommand **L**ine **A**pps **S**cript **P**rojects). *clasp* allows you to check-in your code into source control, collaborate with other developers, and use your favorite tools to develop Apps Script.
+
+[NOTE]
+To learn more about clasp, see it's https://github.com/google/clasp[github repository, window="_blank"]
 
 . Download *clasp*:
 [source, bash]
@@ -120,11 +125,39 @@ Develop Apps Script projects locally using *clasp* (**C**ommand **L**ine **A**pp
 . Create an account and/or sign in to *https://github.com[github]*
 . Click on *Repositories*
 . Click on *New* to create a new repository
-. Enter a *Repository name* and click *Create repository*
+. Enter a *Numbers* as the *Repository name*  and click *Create repository*
 . Copy the  *first git command,* located in the *...or push an existing repository from command line*, to clipboard.
 . Back in the *Numbers* directory, execute the copied command:
 [source, bash]
     git remote add origin https://github.com/daubejb/Numbers.git
+
+. To exclude the *.clasp.json* file from version control, execute:
+[source, bash]
+    echo '.clasp.json' >> ./.gitignore
+
+. To stage the *files*, execute:
+[source, bash]
+    git add .
+
+. To commit the *files*, execute:
+[source, bash]
+    git commit -am 'initial commit'
+
+. To push the files to Github, execute:
+[source, bash]
+    git push -u origin master
+
+==== Push changes to Apps Script Editor
+
+. Prior to pushing changes to the Google Apps Script project, setup a *.claspignore* file.  This file operates similarly to a *.gitignore* file.  Create a file named, *.claspignore* with the following contents:
+[source]
+    **/**
+    !Code.js
+    !appsscript.json
+
+. Execute the following command to push local code changes to the Google Apps Script project and editor:
+[source, bash]
+    clasp push
 
 
 // JSON
