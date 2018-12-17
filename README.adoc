@@ -1,3 +1,5 @@
+[![clasp](https://img.shields.io/badge/built%20with-clasp-4285f4.svg)](https://github.com/google/clasp)
+
 = How to create a Google Hangouts Chat Bot and setup a local development environment
 :toc:
 :linkattrs:
@@ -209,6 +211,9 @@ This step will open the *Google Cloud Platform*, offered by Google, is a suite o
 . Within the *Add bot* page, search for *Numbers*
 . Select the *Numbers* bot
 . Withing the direct message, type '*Hello Numbers!*'
+. If everything is setup correctly, you should see:
+
+image::numbersSetup.png[title="Setup"]
 
 // JSON
 // Include the query parameter json or set the HTTP header Content-Type to application/json to return the fact and associated meta-data as a JSON object, with the properties:
