@@ -1,6 +1,7 @@
-= How to create a Google Hangouts Chat Bot and setup a development environment
+= How to create a Google Hangouts Chat Bot and setup a local development environment
 :toc:
 :linkattrs:
+:imagesdir: images
 
 [.lead]
 A Google Apps Script Hangouts Bot tutorial to *get data from an external api (http://numberapi.com/[https://numbersapi.com/, window="_blank"])* and setup a *development environment* with *version control*.
@@ -159,8 +160,55 @@ To learn more about clasp, see it's https://github.com/google/clasp[github repos
 [source, bash]
     clasp push
 
-image::https://github.com/daubejb/Numbers/blob/master/images/clasp_push.png?raw=true
+==== Deploy the bot for Development testing
 
+===== Step one: Get the Deployment ID
+
+. Open the *Numbers* file in Google Apps Script
+[TIP]
+To find the Numbers script in your https://drive.google.com[Google Drive], search for '*type:script*' and Drive will display all of your Google Apps Script projects +
+ +
+Or, navigate to https://script.google.com[https://script.google.com] to see all of your projects
+
+. Click on *Publish* > *Deploy from manifest...*
+. In the *Deployments* dialog box, next to *Latest Version (HEAD)*, click *Get ID*
+. Within the *Deployment ID* dialog box, copy the value listed for *Deployment ID*
+[NOTE]
+You will need this *Deployment ID* in step two below
+. Click *Close* and then click *Close* again to dismiss the dialog boxes
+[TIP]
+Use the *HEAD* deployment for development and simple unit testing.  Bots using the *HEAD* deployment cannot be shared across a domain and require users to have access to your *Google Apps Script*.
+[NOTE]
+See https://developers.google.com/hangouts/chat/how-tos/manage-releases[https://developers.google.com/hangouts/chat/how-tos/manage-releases] for more information about *Managing releases of your bot*
+
+===== Step two: Configure the Hangouts Chat API on Google Cloud Console
+
+. In the Script editor, click on *Resources* > *Cloud Platform Project...*
+. Within the *Cloud Platform project dialog box*, click on the *Cloud Platform project* hyperlink that is associated with the project
+[NOTE]
+This step will open the *Google Cloud Platform*, offered by Google, is a suite of cloud computing services that runs on the same infrastructure that Google uses internally for its en-user products, such as Google Search and You Tube.
+
+. Within the *Google Cloud Platform*, enable the Hangouts Chat API by doing the following:
+.. Click on the *navigation menu* and then click *APIs & Services > Library*
+.. Start typing *Hangouts Chat API*, and then click on its associated *Card*
+.. Within the *API Library overview page*, click on *ENABLE*
+. Once the *API* is enabled, click on *Configuration*
+. In the Configuration pane, configure the following:
+.. Enter *'Numbers'* in the _Bot Name_ field
+.. Enter *'https://goo.gl/yKKjbw'* in the _Avatar URL_ field
+.. Enter *'Gets information about numbers'* in the _Description_ field
+.. Check mark the *Bot works in direct messages* checkbox withing the _Functionality_ section
+.. Select the *Apps Script project* radio button and paste the *Deployment ID* from _Step One_ above
+.. Select the *Specific people and groups in your domain* and enter your G Suite *email address*
+.. Click *SAVE*
+
+===== Step three: Test the setup
+
+. Navigate to https://chat.google.com[Hangouts Chat]
+. Click on *Find people, rooms, bots*
+. Within the *Add bot* page, search for *Numbers*
+. Select the *Numbers* bot
+. Withing the direct message, type '*Hello Numbers!*'
 
 // JSON
 // Include the query parameter json or set the HTTP header Content-Type to application/json to return the fact and associated meta-data as a JSON object, with the properties:
