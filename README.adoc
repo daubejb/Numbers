@@ -1,9 +1,10 @@
-[![clasp](https://img.shields.io/badge/built%20with-clasp-4285f4.svg)](https://github.com/google/clasp)
 
 = How to create a Google Hangouts Chat Bot and setup a local development environment
 :toc:
 :linkattrs:
 :imagesdir: images
+
+image::https://img.shields.io/badge/built%20with-clasp-4285f4.svg[link=https://github.com/google/clasp]
 
 [.lead]
 A Google Apps Script Hangouts Bot tutorial to *get data from an external api (http://numberapi.com/[https://numbersapi.com/, window="_blank"])* and setup a *development environment* with *version control*.
