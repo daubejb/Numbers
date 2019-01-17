@@ -1,0 +1,19 @@
+{
+  "name": "numbers",
+  "version": "1.0.0",
+  "description": "= How to create a Google Hangouts Chat Bot and setup a local development environment :toc: :linkattrs: :imagesdir: images",
+  "main": "Code.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daubejb/Numbers.git"
+  },
+  "author": "Jeffrey B. Daube",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/daubejb/Numbers/issues"
+  },
+  "homepage": "https://github.com/daubejb/Numbers#readme"
+}

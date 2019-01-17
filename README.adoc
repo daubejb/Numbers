@@ -29,7 +29,7 @@ This tutorial has the following goals:
 ** user acceptance testing
 ** production release
 
-== Prerequisites and setup
+== Part One: Prerequisites and setup
 
 === Prerequisites
 
@@ -232,3 +232,95 @@ image::numbersSetup.png[title="Setup"]
 //     "type": "year",
 //     "date": "June 6"
 // }
+
+== Part Two: Write, Lint, and Watch for code changes
+
+Before writing code that retrieves information about numbers from (http://numberapi.com/[https://numbersapi.com/, window="_blank"]),  Let's improve the quality and standardization of the code through linting.
+
+[NOTE]
+A *linter* or *lint* refers to tools that analyze source code to flag programming errors, bugs, stylistic errors, and suspicious constructs.
+ +
+To learn more about the history of Linting, see https://en.wikipedia.org/wiki/Lint_(software)[Lint (Software) on wikipedia, window="_blank"]
+
+[NOTE]
+If not interested in setting up Linting, skip this step.
+
+=== Setup ESLint within vsCode
+
+[NOTE] This step assumes the use of Visual Studio Code https://code.visualstudio.com/[https://code.visualstudio.com/].  Visit this link to download the code editor.
+
+. Open the *Numbers* directory in *vsCode*
+. Within *vsCode*, click *View > Terminal*
+. Within *Terminal* execute the following:
+[source, bash]
+    sudo npm init
+
+. Click *enter* to advance through the default selections
+[NOTE]
+*npm* is the package manager for the Node Javascript platform.  It puts modules in place so that node can find them, and manages dependency conflicts intelligently.
+ +
+ To learn more about *npm* see: https://docs.npmjs.com/cli/npm[https://docs.npmjs.com/cli/npm, window="_blank"]
+
+. Click on *Extensions* in the *Activity Bar*
+. In the *Extensions panel*, search for *ESLint*
+. Select *ESLint* provided by *Dirk Baeumer*
+. Within the *Extension: ESLint* informational page, click *Install*
+. Open the *Command Palette* and select *ESLint: Create ESLint Configuration*
+[TIP]
+*ctrl + shift + p* - also opens the Command Palette
+
+. This command launches *eslint --init*, provide the following answers to the init questions:
+.. *How would you like to configure ESLint?* _Answer questions about your style_
+.. *Which version of ECMAScript do you use?* _ES5_
+.. *Where will your code run?* _Browser_
+.. *Do you use CommonJS?* _No_
+.. *Do you use JSX?* _No_
+.. *What style of indentation do you use?* _Spaces_
+.. *What quotes do you use for strings?* _Single_
+.. *What line endings do you use?* _Unix_
+.. *Do you require semicolons?* _Yes_
+.. *What format do you want your config file to be in?* _JSON_
+. Upon success, the *eslint --int* will create a local *.eslintrc.json* file
+
+=== Resolve ESLint problems with current code base
+
+. With only the *Code.js* file open within *vsCode*, within the *panel*, click on *PROBLEMS* to see the current [eslint] problems
+[TIP]
+*ctrl + j* will toggle visibility of the panel
+
+. There will be approximately three types of lint problems listed, below is the summary and how to fix each type of lint error:
+
+.ESLint Problems and Resolutions
+|===
+|Problem name |Resolution | Comments
+
+|*Strings* must use single-quote
+|Replace all *double-quotes(")* with *single-quotes(')*
+|This is the project's developer preference
+
+|Expected indentation of *'x'* but found *'y'*
+|Make all *indentations* units of *'4'*
+|This is the project's developer preference
+
+|'functionName' is defined but never used
+|Left click on each *instance*, then click on the *yellow light bulb icon* and select *suppress no-used-vars for this line*
+|The three boiler-plate functions provided by Google's quick-start are only called from the chat.google.com application; so, this file 'thinks' they will never be called.
+|===
+
+=== Setup watching to automatically push changes to Google
+
+*clasp* provides the ability to have your development environment watch for changes in code and automatically push the changes to *Google Apps Script* project.  And, since the Google Cloud Console Project is setup using the *HEAD deployment*, the changes will propagate to the live bot.
+
+. Within *Terminal*, execute the following:
+[source, bash]
+    clasp push --watch
+. When successful, the terminal will show:
+[source, bash]
+    Pushing files...
+    --Code.js
+    --appsscript.json
+    Pushed 2 Files
+    ࡫
+. Within the *Code.js* file, make a simple change like adding the word *this*, within the *onMessage* function, at the end fo the "You just said *this*:" string
+. Save the *Code.js* file
+. Within the *chat.google.com* application, send the *Numbers* bot a direct message to see the *clasp* watch functionality publish the changes to Google and then automatically propagate the changes to the *HEAD Deployment* of the bot
