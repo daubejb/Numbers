@@ -3,6 +3,7 @@
 :toc:
 :linkattrs:
 :imagesdir: images
+:source-highlighter: pygments
 
 image::https://img.shields.io/badge/built%20with-clasp-4285f4.svg[link=https://github.com/google/clasp]
 
@@ -324,3 +325,14 @@ If not interested in setting up Linting, skip this step.
 . Within the *Code.js* file, make a simple change like adding the word *this*, within the *onMessage* function, at the end fo the "You just said *this*:" string
 . Save the *Code.js* file
 . Within the *chat.google.com* application, send the *Numbers* bot a direct message to see the *clasp* watch functionality publish the changes to Google and then automatically propagate the changes to the *HEAD Deployment* of the bot
+
+== Part Three:  Implement chat logic to call Numbers API trivia
+
+This part implements basic code to call the http://numbersapi.com[http://numbersapi.com, window="_blank"] for the user entered integer and then display the trivia fact for the number in the Direct Message or Chat Room.
+
+1. With *clasp* watching changes to your local project, open *Code.gs*
+2. Replace to content of your file with the following
+[source, javascript]
+----
+include::/Code.js[]
+----
