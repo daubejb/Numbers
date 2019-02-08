@@ -1,4 +1,3 @@
-
 = How to create a Google Hangouts Chat Bot and setup a local development environment
 :toc:
 :linkattrs:
@@ -13,7 +12,10 @@ A Google Apps Script Hangouts Bot tutorial to *get data from an external api (ht
 == Executive Summary
 
 === Introduction
-Chatbots, or "bots" for short, are computer programs that interact with people in a way that mimics human interaction to some degree.  Bots in Hangouts Chat appear as special users marked as *BOT*.  Just like people, bots can participate in chat rooms, and they can respond to direct message.  But unlike people, bots only see messages directed to them when a person @mentions them in a chat room, or when a person sends them a direct message.
+Chatbots, or "bots" for short, are computer programs that interact with people in a way that mimics human interaction to some degree.
+Bots in Hangouts Chat appear as special users marked as *BOT*.
+Just like people, bots can participate in chat rooms, and they can respond to direct message.
+But unlike people, bots only see messages directed to them when a person @mentions them in a chat room, or when a person sends them a direct message.
 
 _Introduction summarized from the Hangouts Chat API - Chatbot Concepts.  To learn more, visit https://developers.google.com/hangouts/chat/concepts/bots[https://developers.google.com/hangouts/chat/concepts/bots, window="_blank"]._
 
@@ -25,10 +27,7 @@ This tutorial has the following goals:
 * Connect the local environment to Github for version control
 * Automatically push local changes to the Google Apps Script project on Google
 * Code the bot to get data from the http://numberapi.com/[numbers api, window="_blank"]
-* Deploy the chat bot for the following purposes:
-** developer testing
-** user acceptance testing
-** production release
+* Deploy the chat bot for developer testing
 
 == Part One: Prerequisites and setup
 
@@ -57,7 +56,8 @@ This article requires the following:
 
 ==== Create Google Apps Script File
 
-Build web apps and automate tasks with Google Apps Script.  Apps Script is a rapid application development platform that makes it fast and easy to create business applications that integrate with G Suite. 
+Build web apps and automate tasks with Google Apps Script.
+Apps Script is a rapid application development platform that makes it fast and easy to create business applications that integrate with G Suite. 
 [NOTE]
 See https://www.google.com/script/start/[Google Apps Script, window="_blank"] for more information.
 
@@ -96,7 +96,8 @@ See https://www.google.com/script/start/[Google Apps Script, window="_blank"] fo
 
 ==== Install clasp and clone project
 
-Develop Apps Script projects locally using *clasp* (**C**ommand **L**ine **A**pps **S**cript **P**rojects). *clasp* allows you to check-in your code into source control, collaborate with other developers, and use your favorite tools to develop Apps Script.
+Develop Apps Script projects locally using *clasp* (**C**ommand **L**ine **A**pps **S**cript **P**rojects).
+*clasp* allows you to check-in your code into source control, collaborate with other developers, and use your favorite tools to develop Apps Script.
 
 [NOTE]
 To learn more about clasp, see it's https://github.com/google/clasp[github repository, window="_blank"]
@@ -154,7 +155,8 @@ To learn more about clasp, see it's https://github.com/google/clasp[github repos
 
 ==== Push changes to Apps Script Editor
 
-. Prior to pushing changes to the Google Apps Script project, setup a *.claspignore* file.  This file operates similarly to a *.gitignore* file.  Create a file named, *.claspignore* with the following contents:
+. Prior to pushing changes to the Google Apps Script project, setup a *.claspignore* file.
+This file operates similarly to a *.gitignore* file.  Create a file named, *.claspignore* with the following contents:
 [source]
     **/**
     !Code.js
@@ -181,7 +183,8 @@ Or, navigate to https://script.google.com[https://script.google.com] to see all 
 You will need this *Deployment ID* in step two below
 . Click *Close* and then click *Close* again to dismiss the dialog boxes
 [TIP]
-Use the *HEAD* deployment for development and simple unit testing.  Bots using the *HEAD* deployment cannot be shared across a domain and require users to have access to your *Google Apps Script*.
+Use the *HEAD* deployment for development and simple unit testing.
+Bots using the *HEAD* deployment cannot be shared across a domain and require users to have access to your *Google Apps Script*.
 [NOTE]
 See https://developers.google.com/hangouts/chat/how-tos/manage-releases[https://developers.google.com/hangouts/chat/how-tos/manage-releases] for more information about *Managing releases of your bot*
 
@@ -217,23 +220,6 @@ This step will open the *Google Cloud Platform*, offered by Google, is a suite o
 
 image::numbersSetup.png[title="Setup"]
 
-// JSON
-// Include the query parameter json or set the HTTP header Content-Type to application/json to return the fact and associated meta-data as a JSON object, with the properties:
-// text: A string of the fact text itself.
-// found: Boolean of whether there was a fact for the requested number.
-// number: The floating-point number that the fact pertains to. This may be useful for, eg. a /random request or notfound=floor. For a date fact, this is the 1-indexed day of a leap year (eg. 61 would be March 1st).
-// type: String of the category of the returned fact.
-// date (sometimes): A day of year associated with some year facts, as a string.
-// year (sometimes): A year associated with some date facts, as a string.
-// http://numbersapi.com/random/year?json
-// ⇒ {
-//     "text": "2012 is the year that the century's second and last solar transit of Venus occurs on June 6.",
-//     "found": true,
-//     "number": 2012,
-//     "type": "year",
-//     "date": "June 6"
-// }
-
 == Part Two: Write, Lint, and Watch for code changes
 
 Before writing code that retrieves information about numbers from (http://numberapi.com/[https://numbersapi.com/, window="_blank"]),  Let's improve the quality and standardization of the code through linting.
@@ -258,7 +244,8 @@ If not interested in setting up Linting, skip this step.
 
 . Click *enter* to advance through the default selections
 [NOTE]
-*npm* is the package manager for the Node Javascript platform.  It puts modules in place so that node can find them, and manages dependency conflicts intelligently.
+*npm* is the package manager for the Node Javascript platform.
+It puts modules in place so that node can find them, and manages dependency conflicts intelligently.
  +
  To learn more about *npm* see: https://docs.npmjs.com/cli/npm[https://docs.npmjs.com/cli/npm, window="_blank"]
 
@@ -310,7 +297,8 @@ If not interested in setting up Linting, skip this step.
 
 === Setup watching to automatically push changes to Google
 
-*clasp* provides the ability to have your development environment watch for changes in code and automatically push the changes to *Google Apps Script* project.  And, since the Google Cloud Console Project is setup using the *HEAD deployment*, the changes will propagate to the live bot.
+*clasp* provides the ability to have your development environment watch for changes in code and automatically push the changes to *Google Apps Script* project.
+And, since the Google Cloud Console Project is setup using the *HEAD deployment*, the changes will propagate to the live bot.
 
 . Within *Terminal*, execute the following:
 [source, bash]
@@ -328,11 +316,85 @@ If not interested in setting up Linting, skip this step.
 
 == Part Three:  Implement chat logic to call Numbers API trivia
 
-This part implements basic code to call the http://numbersapi.com[http://numbersapi.com, window="_blank"] for the user entered integer and then display the trivia fact for the number in the Direct Message or Chat Room.
+This part implements basic code to call the http://numbersapi.com[http://numbersapi.com, window="_blank"] for the user entered integer and then displays the trivia fact for the number in the Direct Message or Chat Room.
 
-1. With *clasp* watching changes to your local project, open *Code.gs*
-2. Replace to content of your file with the following
+. With *clasp* watching changes to your local project, open *Code.gs*
+. Replace the content of the file with the following
 [source, javascript]
 ----
-include::/Code.js[]
+    /* eslint-disable no-undef */
+    /* eslint-disable no-unused-vars */
+    /**
+    * Responds to a MESSAGE event in Hangouts Chat.
+    *
+    * @param {Object} event the event object from Hangouts Chat
+    */
+    function onMessage(event) {
+        // Determine if user entered any argument text
+        if (event.message.argumentText) {
+
+            // Create variable arg to store users entered text
+            // && trim white-space
+            var arg = event.message.argumentText.trim();
+
+            // Create Regular Expression for integer
+            var integerRegex = new RegExp(/^\d+$/);
+
+            // Is the argument text an integer
+            if (integerRegex.test(arg)) {
+
+                // Create variable to store result off api call
+                var trivia = NumbersApi.getTrivia(arg);
+
+                // Inject result of API call into chat room or DM
+                // using Simple Text Message format
+                return { text: trivia };
+
+            // Argument text is not an integer
+            } else {
+                return { text: getHelpMessage() };
+            }
+        // User did not enter argument text
+        } else {
+            return { text: getHelpMessage() };
+        }
+    }
+
+    var NumbersApi = {
+        getTrivia: function(arg) {
+
+            // Use Google Apps Script UrlFetchApp.fetch method
+            var response = UrlFetchApp.fetch('http://numbersapi.com/' + arg);
+
+            // Parse the text of the API response
+            var returnResponse = response.getContentText();
+            return returnResponse;
+        }
+    };
+
+    function getHelpMessage() {
+        return 'Please enter an integer to get it\'s trivia';
+    }
+
+    /**
+    * Responds to an ADDED_TO_SPACE event in Hangouts Chat.
+    *
+    * @param {Object} event the event object from Hangouts Chat
+    */
+    function onAddToSpace(event) {
+        return { text: 'Thank you for adding me, \' + event.user.displayName + \'!' };
+    }
+
+    /**
+    * Responds to a REMOVED_FROM_SPACE event in Hangouts Chat.
+    *
+    * @param {Object} event the event object from Hangouts Chat
+    */
+
+    function onRemoveFromSpace(event) {
+        // eslint-disable-next-line no-console
+        console.info('Bot removed from ', event.space.name);
+    }
 ----
+
+Finally, within the *chat.google.com* application, send the *Numbers* bot a direct message containing your favorite integer to retrieve trivia about the number.
